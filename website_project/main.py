@@ -1,5 +1,5 @@
 import logging
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_restful import Resource, Api
 from typing import NewType
 
@@ -15,8 +15,16 @@ JSON = NewType("json", dict)
 
 
 @app.route("/", methods=['GET'])
-def welcome_page() -> HTML:
+def home_page() -> HTML:
     return render_template("welcome.html")
+
+
+@app.route("/activity", methods=['GET', 'POST'])
+def activity_form() -> HTML:
+    if request.method == 'GET':
+        return render_template("activity-form.html")
+    print('POST REQUEST')
+
 
 
 class HealthResource(Resource):
