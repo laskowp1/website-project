@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Activity Form</title>
+{% extends "base.html" %}
 
-    <style>
-        {# Make all activities forms invisible by default #}
-        {% for activity in activities %}
-            .{{ activity }}{{ hidden_marker }} {
-                display: none;
-            }
-        {% endfor %}
-    </style>
-</head>
-<body>
+{% block style %}
+    {# Make all activities forms invisible by default #}
+    {% for activity in activities %}
+        .{{ activity }}{{ hidden_marker }} {
+            display: none;
+        }
+    {% endfor %}
+{% endblock %}
+{% block body %}
     <h1>Activity Form</h1>
 
     <form method="post">
@@ -80,5 +76,4 @@
             }
         });
     </script>
-</body>
-</html>
+{% endblock %}
