@@ -1,16 +1,84 @@
-{% extends "base.html" %}
-{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activity Form</title>
 
-    <div class="container text-center">
-        <div class="row align-items-center">
-            <div class="col"></div>
+    <style>
+        {# Make all activities forms invisible by default #}
+        {% for activity in activities %}
+            .{{ activity }}{{ hidden_marker }} {
+                display: none;
+            }
+        {% endfor %}
+    </style>
+</head>
+<body>
+    <h1>Activity Form</h1>
 
-            <div class="col-6 align-self-center">
-              Placeholder for activity form.
-            </div>
+    <form method="post">
+        <fieldset>
+            <legend>Add activity</legend>
 
-            <div class="col"></div>
-        </div>
-    </div>
+            {# Dropdown menu #}
+            <label for="activitySelect">Select activity:</label><br>
+            <select id="activitySelect" name="name">
+                <option disabled selected value="empty"> -- select activity -- </option>
+                {% for activity in activities %}
+                    <option value="{{ activity }}">{{ activity }}</option>
+                {% endfor %}
+            </select><br>
+            <br>
 
-{% endblock %}
+            {# Create form for each activity. It's invisible by default. #}
+            {% for activity in activities %}
+                {# Each activity has own form #}
+                <div class="{{ activity }}{{ hidden_marker }}" id="{{ activity }}{{ hidden_marker }}">
+                    {# Form consist of different fields #}
+                    {% for field in activities[activity] %}
+                        {{ field.html_label_element | safe }}<br>
+                        {{ field.html_input_element | safe }}<br>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <br>
+            <input type="submit" value="Submit">
+      </fieldset>
+    </form>
+
+    <script>
+        {# Dropdown activity list #}
+        const activitySelect = document.getElementById("activitySelect");
+
+        {# Populate all activities #}
+        const activities = [];
+        {% for activity in activities %}
+            activities.push("{{ activity }}")
+        {% endfor %}
+        console.log("All activities: " + activities);
+
+        {# Make form for selected activity visible #}
+        activitySelect.addEventListener('change', (event) => {
+            console.log("Selected activity: " + activitySelect.value);
+
+            const MARKER = "{{ hidden_marker }}";
+            for (const activity of activities) {
+                const hiddenClass = activity + MARKER;
+                const activityFormId = activity + MARKER;
+
+                if (activity == activitySelect.value) {
+                    document.getElementById(activityFormId).classList.remove(hiddenClass);
+                } else {
+                    const inactiveActivity = document.getElementById(activityFormId);
+                    {# Turn visibility off #}
+                    inactiveActivity.classList.add(hiddenClass);
+                    {# Disable all its input elements to prevent 'require' policy #}
+                    for (const element of inactiveActivity.querySelectorAll("input")) {
+                        element.disabled = true;
+                    };
+                }
+            }
+        });
+    </script>
+</body>
+</html>
