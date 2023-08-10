@@ -2,7 +2,9 @@ import logging
 from flask import Flask, render_template, request
 from flask_restful import Resource, Api
 from typing import NewType
-from website_project.activity.base import ACTIVITIES, IS_REQUIRED_HTML_CLASS_NAME
+from website_project.activity.base import IS_REQUIRED_HTML_CLASS_NAME
+from website_project.activity.activities import ACTIVITIES
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -13,7 +15,6 @@ API_PREFIX = "restapi"
 
 HTML = NewType("html", str)
 JSON = NewType("json", dict)
-
 
 
 @app.route("/", methods=['GET'])

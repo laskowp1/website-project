@@ -101,29 +101,3 @@ class Activity:
     name: str
     fields: Tuple[HtmlField]
     date: datetime = field(default_factory=datetime.now().date)
-
-
-DISTANCE_IN_KM = NumberField("Distance", True, Unit.KM, 0, 250, 0.01)
-TOTAL_TIME_IN_MIN = NumberField("Total time", True, Unit.MIN, 0, 360, 1)
-ELEVATION_GAIN_IN_M = NumberField("Elevation", False, Unit.M, 0, 5000, 1)
-DESCRIPTION = TextField("Description", False)
-
-ACTIVITIES = {
-    "swim": [
-        DISTANCE_IN_KM,
-        TOTAL_TIME_IN_MIN,
-        DESCRIPTION,
-    ],
-    "run": [
-        DISTANCE_IN_KM,
-        TOTAL_TIME_IN_MIN,
-        ELEVATION_GAIN_IN_M,
-        DESCRIPTION,
-    ],
-    "bike": [
-        DISTANCE_IN_KM,
-        TOTAL_TIME_IN_MIN,
-        ELEVATION_GAIN_IN_M,
-        DESCRIPTION,
-    ]
-}
