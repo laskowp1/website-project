@@ -4,6 +4,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 
+IS_REQUIRED_HTML_CLASS_NAME = "is_required"
+
 
 class Unit(Enum):
     M = "m"
@@ -20,7 +22,7 @@ class HtmlType(Enum):
 class HtmlField(ABC):
 
     def __init__(self, name: str, html_type: HtmlType, required: bool) -> None:
-        self.name = name
+        self._name = name
         self.html_type = html_type
         self.required = required
 
@@ -33,6 +35,10 @@ class HtmlField(ABC):
     @abstractmethod
     def html_input_element(self) -> str:
         pass
+
+    @property
+    def name(self) -> str:
+        return self._name.strip().replace(" ", "_").lower()
 
 
 class TextField(HtmlField):
@@ -53,6 +59,7 @@ class TextField(HtmlField):
             f"<input type='{self.html_type.value}'"
             f"id='{self.name}'"
             f"name='{self.name}'"
+            f"class='{IS_REQUIRED_HTML_CLASS_NAME if self.required else ''}'"
             f"{'required' if self.required else ''}"
             ">"
         )
@@ -83,6 +90,7 @@ class NumberField(HtmlField):
             f"step='{self.step}'"
             f"id='{self.name}'"
             f"name='{self.name}'"
+            f"class='{IS_REQUIRED_HTML_CLASS_NAME if not self.required else ''}'"
             f"{'required' if self.required else ''}"
             ">"
         )

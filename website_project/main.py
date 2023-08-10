@@ -2,7 +2,7 @@ import logging
 from flask import Flask, render_template, request
 from flask_restful import Resource, Api
 from typing import NewType
-from website_project.activity.base import ACTIVITIES
+from website_project.activity.base import ACTIVITIES, IS_REQUIRED_HTML_CLASS_NAME
 
 app = Flask(__name__)
 api = Api(app)
@@ -15,7 +15,9 @@ HTML = NewType("html", str)
 JSON = NewType("json", dict)
 
 
+
 @app.route("/", methods=['GET'])
+@app.route("/home", methods=['GET'])
 def home_page() -> HTML:
     return render_template("welcome.html")
 
@@ -24,22 +26,13 @@ def home_page() -> HTML:
 def activity_form() -> HTML:
     if request.method == "POST":
         print(request.form)
-        # activity = request.form.get("activity")
-        # if activity not in activity_fields:
-        #     return "Invalid activity selected."
-        #
-        # required_fields = activity_fields[activity]
-        # form_data = {field: request.form.get(field) for field in required_fields}
-        #
-        # # Process the form_data and save it to the database or perform other actions
-
         return "Form data submitted successfully."
     if request.method == "GET":
         return render_template(
             "activity-form.html",
             activities=ACTIVITIES,
             hidden_marker="Div",
-            form_marker="Form"
+            is_required_class_name=IS_REQUIRED_HTML_CLASS_NAME,
         )
 
     raise Exception(f"Unsupported method `{request.method}`!")

@@ -53,6 +53,8 @@
         {% endfor %}
         console.log("All activities: " + activities);
 
+        const is_required_class_name = "{{ is_required_class_name }}";
+
         {# Make form for selected activity visible #}
         activitySelect.addEventListener('change', (event) => {
             console.log("Selected activity: " + activitySelect.value);
@@ -63,7 +65,15 @@
                 const activityFormId = activity + MARKER;
 
                 if (activity == activitySelect.value) {
-                    document.getElementById(activityFormId).classList.remove(hiddenClass);
+                    const activeActivity = document.getElementById(activityFormId);
+                    {# Turn visibility on #}
+                    activeActivity.classList.remove(hiddenClass);
+                    for (const element of activeActivity.querySelectorAll("input")) {
+                        {# Make all required arguments required #}
+                        if (is_required_class_name in element.classList) {element.required = true};
+                        {# Enable all its input elements to prevent 'require' policy #}
+                        element.disabled = false;
+                    };
                 } else {
                     const inactiveActivity = document.getElementById(activityFormId);
                     {# Turn visibility off #}
