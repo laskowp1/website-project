@@ -30,7 +30,7 @@
                 {# Each activity has own form #}
                 <div class="{{ activity }}{{ hidden_marker }}" id="{{ activity }}{{ hidden_marker }}">
                     {# Form consist of different fields #}
-                    {% for field in activities[activity] %}
+                    {% for field in activity.description_fields %}
                         {{ field.html_label_element | safe }}<br>
                         {{ field.html_input_element | safe }}<br>
                     {% endfor %}

@@ -1,0 +1,29 @@
+---------------------------------------
+
+    - [ ] What data do I need to create automatic html template to meet multiple activities?
+
+-------------
+[ Automatic templates ]
+
+    - [x] What are the attributes of each activity (with examples)?
+        *
+        * Date: 06/08/2023
+        * Name: Swim
+        * Total time: 0 h 0 min
+        * Distance: 0 km
+        * Description: Declined due to the weather conditions.
+        *
+        * Date: 06/08/2023
+        * Name: Bike
+        * Total time: 3 h 10 min
+        * Distance: 90 km
+        * Description: IronMan70.3 Gdynia. Okrążenie po Kaszubach.
+        * Elevation: -
+        *
+        * Date: 06/06/2023
+        * Name: Run
+        * Total time: 2 h 15 min
+        * Distance: 21,5 km
+        * Description: Finisher IronMan70.3 w Gdyni.
+        *
+    - [ ] Create simplest example of a data structure for single activity
