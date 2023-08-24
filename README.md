@@ -45,3 +45,5 @@
       ```bash
       docker push patryklaskowski/my-example-image:latest
       ```
+
+---
